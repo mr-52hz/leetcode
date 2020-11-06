@@ -56,7 +56,7 @@ class Solution(object):
                 ln.val = int(val)
                 _next = ln
             else:
-                new_node = ListNode(val)
+                new_node = ListNode(int(val))
                 _next.next = new_node
                 _next = new_node
         return ln
