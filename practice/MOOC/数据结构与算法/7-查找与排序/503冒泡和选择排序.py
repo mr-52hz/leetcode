@@ -54,10 +54,50 @@ def shortBubbleSort(unorder_list, reverse=False):
     return unorder_list
 
 
+"""
+2、选择排序
+    1、保留冒泡排序中相邻项的比对
+    2、每趟比对只进行一次交换，记录最大项位置，最后一次比对时交换
+    
+复杂度
+    对比次数不变 (1+n-1)*(n-1)/2
+    交换次数较少 n-1
+    (1+n-1)*(n-1)/2 + (n-1) = O(n^2)
+    虽然数量级不变 但是也优化了交换次数 所以算法有提升但是提升效果一般
+    但是选择排序需要开辟一个空间来暂存index_buffer
+"""
+
+
+def selectSort(unorder_list, reverse=False):
+    for scan_length in range(len(unorder_list)-1, 0, -1):
+        is_exchanged = False
+        index_buffer = 0
+        for i in range(scan_length):
+            if reverse is True:
+                if unorder_list[i] < unorder_list[index_buffer]:
+                    index_buffer = i
+                    is_exchanged = True
+            else:
+                if unorder_list[i] > unorder_list[index_buffer]:
+                    index_buffer = i
+                    is_exchanged = True
+
+        if index_buffer != scan_length - 1 and is_exchanged is True:
+            unorder_list[index_buffer], unorder_list[scan_length-1] = unorder_list[scan_length-1], unorder_list[index_buffer]
+
+        if is_exchanged is False:
+            break
+
+    return unorder_list
+
+
 if __name__ == '__main__':
     u_ls = [1, 3, 2, 7, 4]
     ls = bubbleSort(u_ls, reverse=True)
     print(ls)
     ls2 = shortBubbleSort(u_ls)
     print(ls2)
+    ls3 = selectSort(u_ls, reverse=True)
+    print(ls3)
+
 
